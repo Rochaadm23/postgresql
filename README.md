@@ -43,3 +43,37 @@
 * Suporte a dados geográficos(PostGIS)
 * Controle de concorrência multi-versão.
 
+## Melhores praticas
+
+* Arquivo postgresql.conf -> 
+	- Onde estão definidas todas as configurações di servidor postgreSQL.
+	- Alguns parâmetros só podem se alterados com uma reinicialização do banco de dados.
+	- A view pg_settings acessada por dentro do banco de dados, guarda todas as configurações atuais:
+		 - SELECT name, setting
+		 - FROM pg_settings;
+	- Que é possivel usar o comando:
+		 - SHOW [Parâmetro];
+
+* O arquivo postgresql.conf
+	- Por padrão, encontra-se dentro do diretório PGDATA definido no momento da inicialização do cluster de banco de dados.
+	- No sistema operacional Ubunto, se o PostgreSQL foi instalado a partir do repositório oficial, o local do arquivo será diferente do diretório de dados.
+	- /etc/postgresql/[versão]/[nome do cluster]/postgresql.conf
+
+
+* Configurações de conexão no postgresql.conf
+	- LISTEN_ADDRESS
+		- Endereço(s) TCP/IP das interfaces que o servidor PostgreSQL vai escutar/liberar conexões.
+	- PORT
+		- A porta TCP que o servidor PostgreSQL vai ouvir. O padrão é 5432.
+	- MAX_CONNECTIONS
+		- Número máximo de conexões simultâneas no servidor PostgreSQL.
+	- SUPERUSER_RESERVED_CONNECTIONS
+		- Número de conexões (slots) reservadas para conexões ao banco de dados de super usuários.
+
+* Configuração de autenticação
+	- AUTHENTICATION_TIMEOUT
+		- Tempo máximo em segundos para o cliente conseguir uma conexão com o servidor.
+	- PASSWORD_ENCRYPTION
+		- Algoritimo de criptografia das senhas dos novos usuários criados no banco de dados.
+	- SSL
+		- Habilita a conexão Criptografada por SSL(somente se o postgre foi compilado com suporte SSL).

@@ -1,0 +1,19 @@
+--Gerenciando Usuários
+CREATE ROLE professores NOCREATEDB NOCREATEROLE INHERIT NOLOGIN NOBYPASSRLS CONNECTION LIMIT 10;
+ALTER ROLE professores PASSWORD '123';
+SELECT * FROM pg_roles;
+CREATE ROLE daniel LOGIN PASSWORD '123' IN ROLE professores;
+DROP ROLE daniel;
+CREATE ROLE daniel LOGIN PASSWORD '123' ROLE professores;
+create role daniel LOGIN password '123';
+--REVOKE retira permissões
+--REVOKE ALL ON ALL TABLES IN SCHEMA [schema] FROM [role];
+--REVOKE ALL ON SCHEMA [schema] FROM [role];
+--REVOKE ALL ON DATABASE [database] FROM [role];
+
+create table teste(nome varchar);
+grant all on table teste to professores; --dando todos os privilégios na tabela teste para professores;
+create role daniel inherit LOGIN password '123' in role professores;
+revoke professores from daniel;
+
+select nome from teste;
